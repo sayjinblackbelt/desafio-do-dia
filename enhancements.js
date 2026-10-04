@@ -2,7 +2,6 @@
   const STORAGE = 'desafioDoDiaHistory';
   const DAILY = 'desafioDoDiaDaily';
   const completeButton = document.querySelector('#completeChallenge');
-  const newButton = document.querySelector('#newChallenge');
   const title = document.querySelector('#challengeTitle');
   const text = document.querySelector('#challengeText');
   const level = document.querySelector('#challengeLevel');
@@ -26,6 +25,24 @@
 
   const save = (key, value) => localStorage.setItem(key, JSON.stringify(value));
 
+  function getDailyIndex(date) {
+    let hash = 0;
+    for (let i = 0; i < date.length; i += 1) {
+      hash = ((hash << 5) - hash + date.charCodeAt(i)) | 0;
+    }
+    return Math.abs(hash);
+  }
+
+  function getChallenges() {
+    return Array.isArray(window.challenges) ? window.challenges : [];
+  }
+
+  function getDailyChallenge() {
+    const all = getChallenges();
+    if (!all.length) return null;
+    return all[getDailyIndex(dateKey()) % all.length];
+  }
+
   function currentChallenge() {
     return {
       title: title.textContent,
@@ -36,17 +53,16 @@
   }
 
   function updateDailyLabel() {
-    const daily = load(DAILY, null);
     const today = dateKey();
-    if (!daily || daily.date !== today) {
-      const challenge = currentChallenge();
-      save(DAILY, { date: today, title: challenge.title });
-    }
-    const selected = load(DAILY, null);
-    const doneToday = load(STORAGE, []).some(item => item.date === today && item.title === selected?.title);
+    const daily = getDailyChallenge();
+    if (!daily) return;
+
+    save(DAILY, { date: today, title: daily.title, category: daily.category });
+    const items = load(STORAGE, []);
+    const doneToday = items.some(item => item.date === today && item.title === daily.title);
     dailyStatus.textContent = doneToday
       ? '✓ Desafio de hoje concluído. Volte amanhã para continuar.'
-      : 'Complete o desafio atual para registrar seu desafio de hoje.';
+      : 'Complete o desafio de hoje para manter sua sequência.';
     dailyBadge.hidden = false;
   }
 
@@ -70,14 +86,15 @@
     const today = dateKey();
     const xpMatch = challenge.level.match(/(\d+)\s*XP/);
     const xp = xpMatch ? Number(xpMatch[1]) : 0;
-    const daily = load(DAILY, null);
+    const daily = getDailyChallenge();
+    const isDaily = daily && challenge.title === daily.title && challenge.category === daily.category;
     const entry = {
       title: challenge.title,
       category: challenge.category,
       level: challenge.level,
       xp,
       date: today,
-      daily: daily?.date === today && daily?.title === challenge.title
+      daily: Boolean(isDaily)
     };
     if (!items.some(item => item.date === today && item.title === challenge.title)) {
       items.unshift(entry);
@@ -94,8 +111,6 @@
   document.querySelector('#closeHistory')?.addEventListener('click', () => {
     historySection.hidden = true;
   });
-
-  newButton?.addEventListener('click', () => setTimeout(updateDailyLabel, 0));
 
   updateDailyLabel();
 })();
