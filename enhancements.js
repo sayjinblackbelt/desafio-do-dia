@@ -3,7 +3,6 @@
   const DAILY = 'desafioDoDiaDaily';
   const completeButton = document.querySelector('#completeChallenge');
   const title = document.querySelector('#challengeTitle');
-  const text = document.querySelector('#challengeText');
   const level = document.querySelector('#challengeLevel');
   const category = document.querySelector('#challengeCategory');
   const dailyStatus = document.querySelector('#dailyStatus');
@@ -25,41 +24,25 @@
 
   const save = (key, value) => localStorage.setItem(key, JSON.stringify(value));
 
-  function getDailyIndex(date) {
-    let hash = 0;
-    for (let i = 0; i < date.length; i += 1) {
-      hash = ((hash << 5) - hash + date.charCodeAt(i)) | 0;
-    }
-    return Math.abs(hash);
-  }
-
-  function getChallenges() {
-    return Array.isArray(window.challenges) ? window.challenges : [];
-  }
-
-  function getDailyChallenge() {
-    const all = getChallenges();
-    if (!all.length) return null;
-    return all[getDailyIndex(dateKey()) % all.length];
+  function getDailyRecord() {
+    const saved = load(DAILY, null);
+    return saved?.date === dateKey() ? saved : null;
   }
 
   function currentChallenge() {
     return {
       title: title.textContent,
-      text: text.textContent,
       level: level.textContent,
       category: category.textContent
     };
   }
 
   function updateDailyLabel() {
-    const today = dateKey();
-    const daily = getDailyChallenge();
+    const daily = getDailyRecord();
     if (!daily) return;
 
-    save(DAILY, { date: today, title: daily.title, category: daily.category });
     const items = load(STORAGE, []);
-    const doneToday = items.some(item => item.date === today && item.title === daily.title);
+    const doneToday = items.some(item => item.date === daily.date && item.title === daily.title);
     dailyStatus.textContent = doneToday
       ? '✓ Desafio de hoje concluído. Volte amanhã para continuar.'
       : 'Complete o desafio de hoje para manter sua sequência.';
@@ -86,7 +69,7 @@
     const today = dateKey();
     const xpMatch = challenge.level.match(/(\d+)\s*XP/);
     const xp = xpMatch ? Number(xpMatch[1]) : 0;
-    const daily = getDailyChallenge();
+    const daily = getDailyRecord();
     const isDaily = daily && challenge.title === daily.title && challenge.category === daily.category;
     const entry = {
       title: challenge.title,
@@ -112,5 +95,12 @@
     historySection.hidden = true;
   });
 
+  // script.js define o desafio diário de forma determinística; aqui apenas persistimos sua identidade.
+  const initial = currentChallenge();
+  const today = dateKey();
+  const savedDaily = getDailyRecord();
+  if (!savedDaily) {
+    save(DAILY, { date: today, title: initial.title, category: initial.category });
+  }
   updateDailyLabel();
 })();
