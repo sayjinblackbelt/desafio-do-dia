@@ -97,17 +97,40 @@ function drawChallenge() {
   if (completeButton.disabled) feedback.textContent = '✓ Você já concluiu este desafio.';
 }
 
+function getLocalDateKey(date = new Date()) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
+function getPreviousDateKey(date = new Date()) {
+  const previous = new Date(date);
+  previous.setDate(previous.getDate() - 1);
+  return getLocalDateKey(previous);
+}
+
+function updateStreak(today) {
+  if (!state.lastDate) {
+    state.streak = 1;
+  } else if (state.lastDate === today) {
+    return;
+  } else if (state.lastDate === getPreviousDateKey()) {
+    state.streak += 1;
+  } else {
+    state.streak = 1;
+  }
+
+  state.lastDate = today;
+}
+
 function completeChallenge() {
   if (!currentChallenge || completeButton.disabled) return;
 
   const key = currentChallenge.title;
-  const today = new Date().toISOString().slice(0, 10);
+  const today = getLocalDateKey();
 
-  if (state.lastDate !== today) {
-    state.streak += 1;
-    state.lastDate = today;
-  }
-
+  updateStreak(today);
   state.xp += currentChallenge.xp;
   state.completed += 1;
   completedChallengeKeys.add(key);
