@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Desafio do Dia</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app">
+    <header>
+      <p class="eyebrow">MEU PROJETO</p>
+      <h1>Desafio do Dia</h1>
+      <p class="subtitle">Escolha um desafio, pense e coloque a ideia em prática.</p>
+    </header>
+
+    <section class="controls" aria-label="Filtros">
+      <label>Categoria
+        <select id="category">
+          <option value="Todas">Todas</option>
+          <option value="Informática">Informática</option>
+          <option value="Lógica">Lógica</option>
+          <option value="Criatividade">Criatividade</option>
+        </select>
+      </label>
+      <label>Nível
+        <select id="level">
+          <option value="Todos">Todos</option>
+          <option value="Iniciante">Iniciante</option>
+          <option value="Intermediário">Intermediário</option>
+          <option value="Avançado">Avançado</option>
+        </select>
+      </label>
+    </section>
+
+    <section class="challenge" aria-live="polite">
+      <div class="badges">
+        <span id="challengeLevel">Iniciante</span>
+        <span id="challengeCategory">Informática</span>
+      </div>
+      <h2 id="challengeTitle">Organize seus arquivos</h2>
+      <p id="challengeText">Imagine que sua pasta de Downloads está cheia. Crie uma estratégia simples para organizar documentos, imagens e apresentações.</p>
+      <button id="newChallenge">🎯 Novo desafio</button>
+    </section>
+
+    <footer>
+      <span id="counter">Desafios disponíveis: 0</span>
+    </footer>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
