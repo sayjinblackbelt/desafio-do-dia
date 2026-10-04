@@ -14,6 +14,14 @@
       <p class="subtitle">Um desafio rápido para desenvolver conhecimento, lógica e criatividade.</p>
     </header>
 
+    <section class="daily-banner" aria-label="Desafio diário">
+      <span class="daily-icon">★</span>
+      <div>
+        <strong>Desafio de hoje</strong>
+        <p id="dailyStatus">Complete o desafio de hoje para manter sua sequência.</p>
+      </div>
+    </section>
+
     <section class="stats" aria-label="Progresso">
       <div><strong id="xp">0</strong><span>XP</span></div>
       <div><strong id="completed">0</strong><span>Concluídos</span></div>
@@ -51,14 +59,24 @@
       <div class="badges">
         <span id="challengeLevel">Iniciante · 10 XP</span>
         <span id="challengeCategory">Informática</span>
+        <span id="dailyBadge" class="daily-badge">Desafio de hoje</span>
       </div>
       <h2 id="challengeTitle">Organize seus arquivos</h2>
       <p id="challengeText">Imagine que sua pasta de Downloads está cheia. Crie uma estratégia simples para organizar documentos, imagens e apresentações.</p>
       <div class="actions">
         <button id="completeChallenge">✅ Concluir desafio</button>
         <button id="newChallenge" class="secondary">🎯 Novo desafio</button>
+        <button id="historyButton" class="secondary">📋 Histórico</button>
       </div>
       <p id="feedback" class="feedback" role="status"></p>
+    </section>
+
+    <section id="history" class="history" hidden>
+      <div class="history-header">
+        <h2>Histórico</h2>
+        <button id="closeHistory" class="secondary">Fechar</button>
+      </div>
+      <div id="historyList"></div>
     </section>
 
     <footer>
