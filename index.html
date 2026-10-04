@@ -9,10 +9,24 @@
 <body>
   <main class="app">
     <header>
-      <p class="eyebrow">MEU PROJETO</p>
+      <p class="eyebrow">DESAFIO DO DIA</p>
       <h1>Desafio do Dia</h1>
-      <p class="subtitle">Escolha um desafio, pense e coloque a ideia em prática.</p>
+      <p class="subtitle">Um desafio rápido para desenvolver conhecimento, lógica e criatividade.</p>
     </header>
+
+    <section class="stats" aria-label="Progresso">
+      <div><strong id="xp">0</strong><span>XP</span></div>
+      <div><strong id="completed">0</strong><span>Concluídos</span></div>
+      <div><strong id="streak">0</strong><span>Sequência</span></div>
+    </section>
+
+    <section class="progress-wrap" aria-label="Nível">
+      <div class="progress-info">
+        <span id="rank">Nível 1 · Explorador</span>
+        <span id="nextLevel">100 XP para o próximo nível</span>
+      </div>
+      <div class="progress"><span id="progressBar"></span></div>
+    </section>
 
     <section class="controls" aria-label="Filtros">
       <label>Categoria
@@ -35,16 +49,21 @@
 
     <section class="challenge" aria-live="polite">
       <div class="badges">
-        <span id="challengeLevel">Iniciante</span>
+        <span id="challengeLevel">Iniciante · 10 XP</span>
         <span id="challengeCategory">Informática</span>
       </div>
       <h2 id="challengeTitle">Organize seus arquivos</h2>
       <p id="challengeText">Imagine que sua pasta de Downloads está cheia. Crie uma estratégia simples para organizar documentos, imagens e apresentações.</p>
-      <button id="newChallenge">🎯 Novo desafio</button>
+      <div class="actions">
+        <button id="completeChallenge">✅ Concluir desafio</button>
+        <button id="newChallenge" class="secondary">🎯 Novo desafio</button>
+      </div>
+      <p id="feedback" class="feedback" role="status"></p>
     </section>
 
     <footer>
       <span id="counter">Desafios disponíveis: 0</span>
+      <span>Progresso salvo neste navegador</span>
     </footer>
   </main>
   <script src="script.js"></script>
