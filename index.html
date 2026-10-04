@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="enhancements.css">
   <link rel="stylesheet" href="goals.css">
+  <link rel="stylesheet" href="badges.css">
 </head>
 <body>
   <main class="app">
@@ -18,10 +19,7 @@
 
     <section class="daily-banner" aria-label="Desafio diário">
       <span class="daily-icon">★</span>
-      <div>
-        <strong>Desafio de hoje</strong>
-        <p id="dailyStatus">Complete o desafio atual para registrar seu desafio de hoje.</p>
-      </div>
+      <div><strong>Desafio de hoje</strong><p id="dailyStatus">Complete o desafio atual para registrar seu desafio de hoje.</p></div>
     </section>
 
     <section class="stats" aria-label="Progresso">
@@ -31,63 +29,33 @@
     </section>
 
     <section class="progress-wrap" aria-label="Nível">
-      <div class="progress-info">
-        <span id="rank">Nível 1 · Explorador</span>
-        <span id="nextLevel">100 XP para o próximo nível</span>
-      </div>
+      <div class="progress-info"><span id="rank">Nível 1 · Explorador</span><span id="nextLevel">100 XP para o próximo nível</span></div>
       <div class="progress"><span id="progressBar"></span></div>
     </section>
 
     <section class="controls" aria-label="Filtros">
-      <label>Categoria
-        <select id="category">
-          <option value="Todas">Todas</option>
-          <option value="Informática">Informática</option>
-          <option value="Lógica">Lógica</option>
-          <option value="Criatividade">Criatividade</option>
-        </select>
-      </label>
-      <label>Nível
-        <select id="level">
-          <option value="Todos">Todos</option>
-          <option value="Iniciante">Iniciante</option>
-          <option value="Intermediário">Intermediário</option>
-          <option value="Avançado">Avançado</option>
-        </select>
-      </label>
+      <label>Categoria<select id="category"><option value="Todas">Todas</option><option value="Informática">Informática</option><option value="Lógica">Lógica</option><option value="Criatividade">Criatividade</option></select></label>
+      <label>Nível<select id="level"><option value="Todos">Todos</option><option value="Iniciante">Iniciante</option><option value="Intermediário">Intermediário</option><option value="Avançado">Avançado</option></select></label>
     </section>
 
     <section class="challenge" aria-live="polite">
-      <div class="badges">
-        <span id="challengeLevel">Iniciante · 10 XP</span>
-        <span id="challengeCategory">Informática</span>
-        <span id="dailyBadge" class="daily-badge">Desafio de hoje</span>
-      </div>
+      <div class="badges"><span id="challengeLevel">Iniciante · 10 XP</span><span id="challengeCategory">Informática</span><span id="dailyBadge" class="daily-badge">Desafio de hoje</span></div>
       <h2 id="challengeTitle">Organize seus arquivos</h2>
       <p id="challengeText">Imagine que sua pasta de Downloads está cheia. Crie uma estratégia simples para organizar documentos, imagens e apresentações.</p>
-      <div class="actions">
-        <button id="completeChallenge">✅ Concluir desafio</button>
-        <button id="newChallenge" class="secondary">🎯 Novo desafio</button>
-        <button id="historyButton" class="secondary">📋 Histórico</button>
-      </div>
+      <div class="actions"><button id="completeChallenge">✅ Concluir desafio</button><button id="newChallenge" class="secondary">🎯 Novo desafio</button><button id="historyButton" class="secondary">📋 Histórico</button></div>
       <p id="feedback" class="feedback" role="status"></p>
     </section>
 
     <section id="history" class="history" hidden>
-      <div class="history-header">
-        <h2>Histórico</h2>
-        <button id="closeHistory" class="secondary">Fechar</button>
-      </div>
+      <div class="history-header"><h2>Histórico</h2><button id="closeHistory" class="secondary">Fechar</button></div>
       <div id="historyList"></div>
     </section>
 
-    <footer>
-      <span id="counter">Desafios disponíveis: 0</span>
-      <span>Progresso salvo neste navegador</span>
-    </footer>
+    <footer><span id="counter">Desafios disponíveis: 0</span><span>Progresso salvo neste navegador</span></footer>
   </main>
   <script src="script.js"></script>
   <script src="enhancements.js"></script>
   <script src="goals.js"></script>
+  <script src="badges.js"></script>
 </body>
 </html>
